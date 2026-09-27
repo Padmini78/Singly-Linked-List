@@ -1,4 +1,6 @@
-class Node {
+function deleteNode() {
+    // Delete a node from the linked list
+    let value = document.getElementById("valueInput").value;class Node {
     constructor(data) {
         this.data = data;
         this.next = null;
