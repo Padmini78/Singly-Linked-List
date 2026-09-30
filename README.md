@@ -1,4 +1,4 @@
-# Singly Linked List
+## Singly Linked List
 
 A simple web-based implementation of Singly Linked List using HTML, CSS and JavaScript.
 
