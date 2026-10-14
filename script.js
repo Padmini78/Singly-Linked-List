@@ -1,6 +1,4 @@
-function deleteNode() {
-    // Delete a node from the linked list
-    let value = document.getElementById("valueInput").value;class Node {
+class Node {
     constructor(data) {
         this.data = data;
         this.next = null;
@@ -9,15 +7,18 @@ function deleteNode() {
 
 let head = null;
 
+// Insert a node at the end
 function insertNode() {
-    let value = document.getElementById("valueInput").value;
+    const input = document.getElementById("valueInput");
+    const value = input.value.trim();
 
     if (value === "") {
-        showMessage("Please enter a value.");
+        showMessage("Please enter a value.", "error");
+        input.focus();
         return;
     }
 
-    let newNode = new Node(value);
+    const newNode = new Node(value);
 
     if (head === null) {
         head = newNode;
@@ -31,104 +32,126 @@ function insertNode() {
         current.next = newNode;
     }
 
-    document.getElementById("valueInput").value = "";
+    input.value = "";
     displayList();
-    showMessage("Node inserted successfully.");
+    showMessage("Node inserted successfully!", "success");
+    input.focus();
 }
 
+// Delete the first matching node
 function deleteNode() {
-    let value = document.getElementById("valueInput").value;
+    const input = document.getElementById("valueInput");
+    const value = input.value.trim();
 
     if (value === "") {
-        showMessage("Enter the value to delete.");
+        showMessage("Enter a value to delete.", "error");
+        input.focus();
         return;
     }
 
     if (head === null) {
-        showMessage("Linked list is empty.");
+        showMessage("The linked list is empty.", "error");
         return;
     }
 
-    if (head.data == value) {
+    if (head.data === value) {
         head = head.next;
-        displayList();
-        showMessage("Node deleted successfully.");
-        return;
-    }
-
-    let current = head;
-
-    while (current.next !== null && current.next.data != value) {
-        current = current.next;
-    }
-
-    if (current.next === null) {
-        showMessage("Value not found.");
     } else {
+        let current = head;
+
+        while (
+            current.next !== null &&
+            current.next.data !== value
+        ) {
+            current = current.next;
+        }
+
+        if (current.next === null) {
+            showMessage("Value not found in the list.", "error");
+            return;
+        }
+
         current.next = current.next.next;
-        displayList();
-        showMessage("Node deleted successfully.");
     }
+
+    input.value = "";
+    displayList();
+    showMessage("Node deleted successfully!", "success");
+    input.focus();
 }
 
+// Search for a node
 function searchNode() {
-    let value = document.getElementById("valueInput").value;
+    const input = document.getElementById("valueInput");
+    const value = input.value.trim();
 
     if (value === "") {
-        showMessage("Enter a value to search.");
+        showMessage("Enter a value to search.", "error");
+        input.focus();
         return;
     }
 
     let current = head;
 
     while (current !== null) {
-        if (current.data ===value) {
-            showMessage("Value " + value + " found.");
+        if (current.data === value) {
+            showMessage("Value " + value + " found!", "success");
             return;
         }
 
         current = current.next;
     }
 
-    showMessage("Value " + value + " not found.");
+    showMessage("Value " + value + " not found.", "error");
 }
 
+// Display the linked list
 function displayList() {
-    let display = document.getElementById("listDisplay");
-
-    display.innerHTML = "";
+    const display = document.getElementById("listDisplay");
+    display.replaceChildren();
 
     if (head === null) {
-        display.innerHTML = "List is empty";
+        display.textContent = "List is empty";
         return;
     }
 
     let current = head;
 
     while (current !== null) {
-        let nodeBox = document.createElement("span");
+        const nodeBox = document.createElement("span");
         nodeBox.className = "node";
         nodeBox.textContent = current.data;
-
         display.appendChild(nodeBox);
 
-        if (current.next !== null) {
-            let arrow = document.createElement("span");
-            arrow.className = "arrow";
-            arrow.textContent = " → ";
-            display.appendChild(arrow);
-        }
+        const arrow = document.createElement("span");
+        arrow.className = "arrow";
+        arrow.textContent = " → ";
+        display.appendChild(arrow);
 
         current = current.next;
     }
 
-    let nullBox = document.createElement("span");
+    const nullBox = document.createElement("span");
     nullBox.className = "arrow";
-    nullBox.textContent = " → NULL";
-
+    nullBox.textContent = "NULL";
     display.appendChild(nullBox);
 }
 
-function showMessage(message) {
-    document.getElementById("message").textContent = message;
+// Display status messages
+function showMessage(message, type) {
+    const messageBox = document.getElementById("message");
+    messageBox.textContent = message;
+
+    messageBox.style.color =
+        type === "error" ? "#c62828" : "#176b3a";
 }
+
+// Allow Enter to insert a node
+document.getElementById("valueInput").addEventListener(
+    "keydown",
+    function (event) {
+        if (event.key === "Enter") {
+            insertNode();
+        }
+    }
+);
