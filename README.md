@@ -143,7 +143,9 @@ Linked List: 10 -> 30 -> NULL
 - Requires extra memory for pointers.
 - Cannot access elements directly by index.
 - Traversal is possible only in the forward direction.
- github  :
+
+   github  : https://github.com/Padmini78
+  
 ## 📚 Conclusion
 
 A singly linked list is a fundamental data structure that allows dynamic storage and flexible insertion and deletion of elements. It is widely used in implementing stacks, queues, and other data structures.
