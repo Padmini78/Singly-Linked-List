@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Singly Linked List Visualizer</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Singly Linked List Visualizer</h1>
+    <p>Insert, delete, search, and display nodes interactively</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Operations</h2>
+      <div class="controls">
+        <div class="control">
+          <h3>Insert node</h3>
+          <label for="insertValue">Value</label>
+          <input id="insertValue" type="number" step="1" placeholder="e.g. 25">
+          <label for="insertPosition">Insert at</label>
+          <select id="insertPosition">
+            <option value="end">End</option>
+            <option value="beginning">Beginning</option>
+            <option value="position">Position (1-based)</option>
+          </select>
+          <div id="positionBox" hidden>
+            <label for="positionValue">Position</label>
+            <input id="positionValue" type="number" min="1" step="1" value="1">
+          </div>
+          <button id="insertBtn">Insert node</button>
+        </div>
+
+        <div class="control">
+          <h3>Delete node</h3>
+          <label for="deleteValue">Value to delete</label>
+          <input id="deleteValue" type="number" step="1" placeholder="e.g. 25">
+          <button id="deleteBtn" class="danger">Delete first match</button>
+        </div>
+
+        <div class="control">
+          <h3>Search node</h3>
+          <label for="searchValue">Value to search</label>
+          <input id="searchValue" type="number" step="1" placeholder="e.g. 25">
+          <button id="searchBtn" class="secondary">Search</button>
+        </div>
+
+        <div class="control">
+          <h3>Display / reset</h3>
+          <p class="help">Render the current nodes and their <code>next</code> links.</p>
+          <button id="displayBtn" class="secondary">Display list</button>
+          <button id="clearBtn" class="danger">Clear list</button>
+        </div>
+      </div>
+      <div id="status" role="status" aria-live="polite">Ready. Insert a value to begin.</div>
+    </section>
+
+    <section class="panel">
+      <h2>Current linked list</h2>
+      <div class="meta">
+        <span class="pill">Head → first node</span>
+        <span class="pill" id="lengthLabel">Length: 0</span>
+      </div>
+      <div id="visual" class="visual">
+        <div class="empty">The list is empty. Insert a node to begin.</div>
+      </div>
+      <p class="help">Each box contains a value and a next pointer. The last node points to <code>NULL</code>.</p>
+    </section>
+
+  </main>
+</body>
+</html>
